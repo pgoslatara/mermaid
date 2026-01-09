@@ -71,7 +71,6 @@ export const insertEdgeLabel = async (elem, edge) => {
           true,
           width
         );
-
   log.info('abc82', edge, edge.labelType);
 
   // Create outer g, edgeLabel, this will be positioned after graph layout

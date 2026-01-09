@@ -73,7 +73,6 @@ export const labelHelper = async <T extends SVGGraphicsElement>(
     );
     text = labelEl.node()?.appendChild(labelElement);
   }
-
   // Get the size of the label
   let bbox = text.getBBox();
   const halfPadding = (node?.padding ?? 0) / 2;

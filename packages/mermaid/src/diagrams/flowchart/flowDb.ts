@@ -95,7 +95,6 @@ export class FlowDB implements DiagramDB {
         return 'markdown';
     }
   }
-
   /**
    * Function to lookup domId from id in the graph definition.
    *
