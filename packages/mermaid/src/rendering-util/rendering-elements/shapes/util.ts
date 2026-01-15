@@ -2,6 +2,7 @@ import createLabel from '../createLabel.js';
 import { createText } from '../../createText.js';
 import type { Node } from '../../types.js';
 import { getConfig } from '../../../diagram-api/diagramAPI.js';
+import { getEffectiveHtmlLabels } from '../../../config.js';
 import { select } from 'd3';
 import { evaluate, hasKatex, sanitizeText } from '../../../diagrams/common/common.js';
 import { decodeEntities, handleUndefinedAttr } from '../../../utils.js';
@@ -23,7 +24,7 @@ export const labelHelper = async <T extends SVGGraphicsElement>(
   _classes?: string
 ) => {
   let cssClasses;
-  const useHtmlLabels = node.useHtmlLabels || evaluate(getConfig()?.flowchart?.htmlLabels);
+  const useHtmlLabels = node.useHtmlLabels || evaluate(getConfig()?.htmlLabels);
   if (!_classes) {
     cssClasses = 'node default';
   } else {
@@ -115,7 +116,7 @@ export const insertLabel = async <T extends SVGGraphicsElement>(
     addSvgBackground?: boolean | undefined;
   }
 ) => {
-  const useHtmlLabels = options.useHtmlLabels || evaluate(getConfig()?.flowchart?.htmlLabels);
+  const useHtmlLabels = options.useHtmlLabels ?? getEffectiveHtmlLabels(getConfig());
 
   // Create the label and insert it after the rect
   const labelEl = parent
@@ -133,7 +134,7 @@ export const insertLabel = async <T extends SVGGraphicsElement>(
   let bbox = text.getBBox();
   const halfPadding = options.padding / 2;
 
-  if (evaluate(getConfig()?.flowchart?.htmlLabels)) {
+  if (getEffectiveHtmlLabels(getConfig())) {
     const div = text.children[0];
     const dv = select(text);
 
