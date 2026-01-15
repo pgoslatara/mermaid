@@ -53,7 +53,6 @@ const assignWithDepth = (
     Object.keys(src).forEach((key) => {
       if (
         typeof src[key] === 'object' &&
-        src[key] !== null &&
         (dst[key] === undefined || typeof dst[key] === 'object')
       ) {
         if (dst[key] === undefined) {

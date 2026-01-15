@@ -1,5 +1,5 @@
 import { getConfig } from '../../diagram-api/diagramAPI.js';
-import { getEffectiveHtmlLabels } from '../../config.js';
+import { evaluate } from '../../diagrams/common/common.js';
 import { log } from '../../logger.js';
 import { createText } from '../createText.js';
 import utils from '../../utils.js';
@@ -50,7 +50,8 @@ export const getLabelStyles = (styleArray) => {
 };
 
 export const insertEdgeLabel = async (elem, edge) => {
-  let useHtmlLabels = getEffectiveHtmlLabels(getConfig());
+  let useHtmlLabels = evaluate(getConfig().flowchart.htmlLabels);
+  const width = edge.width || getConfig().flowchart?.wrappingWidth;
   const { labelStyles } = styles2String(edge);
   edge.labelStyle = labelStyles;
   const labelElement =
@@ -198,7 +199,7 @@ export const insertEdgeLabel = async (elem, edge) => {
  * @param {any} value
  */
 function setTerminalWidth(fo, value) {
-  if (getEffectiveHtmlLabels(getConfig()) && fo) {
+  if (getConfig().flowchart.htmlLabels && fo) {
     fo.style.width = value.length * 9 + 'px';
     fo.style.height = '12px';
   }

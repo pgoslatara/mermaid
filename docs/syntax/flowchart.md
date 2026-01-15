@@ -85,7 +85,8 @@ Use double quotes and backticks "\` text \`" to enclose the markdown text.
 ```mermaid-example
 ---
 config:
-  htmlLabels: false
+  flowchart:
+    htmlLabels: false
 ---
 flowchart LR
     markdown["`This **is** _Markdown_`"]
@@ -98,7 +99,8 @@ flowchart LR
 ```mermaid
 ---
 config:
-  htmlLabels: false
+  flowchart:
+    htmlLabels: false
 ---
 flowchart LR
     markdown["`This **is** _Markdown_`"]
@@ -1609,7 +1611,8 @@ The "Markdown Strings" feature enhances flowcharts and mind maps by offering a m
 ```mermaid-example
 ---
 config:
-  htmlLabels: false
+  flowchart:
+    htmlLabels: false
 ---
 flowchart LR
 subgraph "One"
@@ -1625,7 +1628,8 @@ end
 ```mermaid
 ---
 config:
-  htmlLabels: false
+  flowchart:
+    htmlLabels: false
 ---
 flowchart LR
 subgraph "One"
@@ -1756,8 +1760,7 @@ Beginner's tip—a full example using interactive links in a html context:
     };
     const config = {
       startOnLoad: true,
-      htmlLabels: true,
-      flowchart: { useMaxWidth: true, curve: 'cardinal' },
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'cardinal' },
       securityLevel: 'loose',
     };
     mermaid.initialize(config);

@@ -1,6 +1,6 @@
 import { select } from 'd3';
 import { getConfig } from '../diagram-api/diagramAPI.js';
-import { getEffectiveHtmlLabels } from '../config.js';
+import { evaluate } from '../diagrams/common/common.js';
 import { log } from '../logger.js';
 import { getArrowPoints } from './blockArrowHelper.js';
 import createLabel from './createLabel.js';
@@ -588,7 +588,7 @@ const rectWithTitle = async (parent, node) => {
 
   const text = label.node().appendChild(await createLabel(title, node.labelStyle, true, true));
   let bbox = { width: 0, height: 0 };
-  if (getEffectiveHtmlLabels(getConfig())) {
+  if (evaluate(getConfig().flowchart.htmlLabels)) {
     const div = text.children[0];
     const dv = select(text);
     bbox = div.getBoundingClientRect();
@@ -609,7 +609,7 @@ const rectWithTitle = async (parent, node) => {
       )
     );
 
-  if (getEffectiveHtmlLabels(getConfig())) {
+  if (evaluate(getConfig().flowchart.htmlLabels)) {
     const div = descr.children[0];
     const dv = select(descr);
     bbox = div.getBoundingClientRect();
@@ -917,7 +917,7 @@ const class_box = async (parent, node) => {
     .node()
     .appendChild(await createLabel(interfaceLabelText, node.labelStyle, true, true));
   let interfaceBBox = interfaceLabel.getBBox();
-  if (getEffectiveHtmlLabels(getConfig())) {
+  if (evaluate(getConfig().flowchart.htmlLabels)) {
     const div = interfaceLabel.children[0];
     const dv = select(interfaceLabel);
     interfaceBBox = div.getBoundingClientRect();
@@ -932,7 +932,7 @@ const class_box = async (parent, node) => {
   let classTitleString = node.classData.label;
 
   if (node.classData.type !== undefined && node.classData.type !== '') {
-    if (getEffectiveHtmlLabels(getConfig())) {
+    if (getConfig().flowchart.htmlLabels) {
       classTitleString += '&lt;' + node.classData.type + '&gt;';
     } else {
       classTitleString += '<' + node.classData.type + '>';
@@ -943,7 +943,7 @@ const class_box = async (parent, node) => {
     .appendChild(await createLabel(classTitleString, node.labelStyle, true, true));
   select(classTitleLabel).attr('class', 'classTitle');
   let classTitleBBox = classTitleLabel.getBBox();
-  if (getEffectiveHtmlLabels(getConfig())) {
+  if (evaluate(getConfig().flowchart.htmlLabels)) {
     const div = classTitleLabel.children[0];
     const dv = select(classTitleLabel);
     classTitleBBox = div.getBoundingClientRect();
@@ -958,7 +958,7 @@ const class_box = async (parent, node) => {
   node.classData.members.forEach(async (member) => {
     const parsedInfo = member.getDisplayDetails();
     let parsedText = parsedInfo.displayText;
-    if (getEffectiveHtmlLabels(getConfig())) {
+    if (getConfig().flowchart.htmlLabels) {
       parsedText = parsedText.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
     const lbl = labelContainer
@@ -972,7 +972,7 @@ const class_box = async (parent, node) => {
         )
       );
     let bbox = lbl.getBBox();
-    if (getEffectiveHtmlLabels(getConfig())) {
+    if (evaluate(getConfig().flowchart.htmlLabels)) {
       const div = lbl.children[0];
       const dv = select(lbl);
       bbox = div.getBoundingClientRect();
@@ -992,7 +992,7 @@ const class_box = async (parent, node) => {
   node.classData.methods.forEach(async (member) => {
     const parsedInfo = member.getDisplayDetails();
     let displayText = parsedInfo.displayText;
-    if (getEffectiveHtmlLabels(getConfig())) {
+    if (getConfig().flowchart.htmlLabels) {
       displayText = displayText.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
     const lbl = labelContainer
@@ -1006,7 +1006,7 @@ const class_box = async (parent, node) => {
         )
       );
     let bbox = lbl.getBBox();
-    if (getEffectiveHtmlLabels(getConfig())) {
+    if (evaluate(getConfig().flowchart.htmlLabels)) {
       const div = lbl.children[0];
       const dv = select(lbl);
       bbox = div.getBoundingClientRect();
